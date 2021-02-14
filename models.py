@@ -14,6 +14,7 @@ class QNetwork(nn.Module):
             seed (int): Random seed
             fc1_units (int): Number of nodes in first hidden layer
             fc2_units (int): Number of nodes in second hidden layer
+            fc3_units (int): Number of nodes in third hidden layer
         """
         super(QNetwork, self).__init__()
         self.seed = torch.manual_seed(seed)
@@ -33,7 +34,7 @@ class QNetwork(nn.Module):
 class DuelingQNetwork(nn.Module):
     """Actor (Policy) Model."""
 
-    def __init__(self, state_size, action_size, seed, feature_units=128, 
+    def __init__(self, state_size, action_size, seed, feature_units=64, 
                  Advantage_units_1=64, Advantage_units_2=32, value_units=64):
         """Initialize parameters and build model.
         Params
@@ -41,8 +42,10 @@ class DuelingQNetwork(nn.Module):
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
             seed (int): Random seed
-            fc1_units (int): Number of nodes in first hidden layer
-            fc2_units (int): Number of nodes in second hidden layer
+            feature_units (int): Number of nodes in first hidden layer
+            Advantage_units_1 (int): Number of nodes in first hidden layer in Advantage branch
+            Advantage_units_2 (int): Number of nodes in second hidden layer in Advantage branch
+            value_units (int): Number of nodes in first hidden layer in value branch
         """
         super(DuelingQNetwork, self).__init__()
 
