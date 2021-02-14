@@ -79,11 +79,11 @@ In this section, the steps of implementation are described and the behaviour af 
 
 Q-Learning refers to a class of algorithms for reinforcement learning, where the Q-function that predicts the maximum expected accumulated reward for each action at the current state is approximated in an iterative manner. In the original deep learning method, a deep network. called Deep Q-Network (DQN) was propoesd to estimate the Q-function. The iterative method can be described as following:
 
-1. Set up a network, $Q(\theta)$, where $\theta$ denotes network parametres, which at each state predicts the accumulated discounted rewards for all possible actions. We can write it as $(Q(s, a; \theta)$ and initialize the parameters with a first random guess. Start at the initial state, $s=s^0$.
-2. Use $Q(s, a; \theta)$ to to find the rewards for each actions and select the action with maxium reward $a^{max}$.
-3. Take the greedy action $a^*$ and record the earned reward, $r$, and the new state, $s^{+1}$.
-4. Calculate the expected maximum accumulated reward by $Q(s,a^{*}; \theta)$.
-5. Calculate an estimate for the target value, by the sum of the actual earned reward and the estimated maximum discounted future reward using the network, i.e. $r+\gamma \text{ argmax}_a\left(Q(s^{+1},a;\theta)\right)$, where $\gamma$ is the discount factor.
+1. Set up a network,![Q(\theta)](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D), where![\theta](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) denotes network parametres, which at each state predicts the accumulated discounted rewards for all possible actions. We can write it as ![(Q(s, a; \theta)](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) and initialize the parameters with a first random guess. Start at the initial state, ![s=s^0](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D).
+2. Use ![Q(s, a; \theta)](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) to to find the rewards for each actions and select the action with maxium reward ![a^{max}](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D).
+3. Take the greedy action ![a^*](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) and record the earned reward, ![r](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D), and the new state, ![s^{+1}](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D).
+4. Calculate the expected maximum accumulated reward by ![Q(s,a^{*}; \theta)](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D).
+5. Calculate an estimate for the target value, by the sum of the actual earned reward and the estimated maximum discounted future reward using the network, i.e. ![r+\gamma \text{ argmax}_a\left(Q(s^{+1},a;\theta)\right)](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D), where ![\gamma](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) is the discount factor.
 6. When the true Q-function is found, the difference between the two estimates should vanish. We search the solution by updating the weights so that the square root error in the batch becomes smaller.
 7. If the target is not achieved, go to point 2, above and continue to iterate.
 
@@ -92,7 +92,7 @@ The above steps describe the basic algorithm. There are a number of improvements
 1. Experience Replay and Double Deep Q-Network and fixed target network
    Using the same network for both selection of the greedy action and estimating the true values, the target, leads to some problems in the calucation. Using two different networks with the same structure will improve the behavior of the system.
 
-   Experience Replay is simply recording the tuple $(s,a,r,s^{+1})$ in the memory and use randomly selected batches for learning.
+   Experience Replay is simply recording the tuple ![(s,a,r,s^{+1})](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) in the memory and use randomly selected batches for learning.
 2. Prioritized Experience Replay
    With prioritized experience replay, those tuples that have a larger contribution to the total error will be selected more often.
 3. Dueling Douple Q-Network
@@ -100,7 +100,7 @@ The above steps describe the basic algorithm. There are a number of improvements
 
 The above three improvements to Deep Q-Network are implemented and tested with the results presented below.
 
-My initial trainings indicated that the agent could become very skilful fast. However, it made mistakes and got stuck in some cases, mistakes that a human player will not commit. My thought was that we do not do such mistakes as we not only see the bananas, but also remember the latest states togther with our own actions. To test this idea, I considered two cases, one, when only the states are taken as input to the networks and one where I added the selected action to the state vector as a for of $extended$ state and saved three stages of this extended state in a history buffer and used that as input to the networks.
+My initial trainings indicated that the agent could become very skilful fast. However, it made mistakes and got stuck in some cases, mistakes that a human player will not commit. My thought was that we do not do such mistakes as we not only see the bananas, but also remember the latest states togther with our own actions. To test this idea, I considered two cases, one, when only the states are taken as input to the networks and one where I added the selected action to the state vector as a for of ![extended](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) state and saved three stages of this extended state in a history buffer and used that as input to the networks.
 
 #### 1. Double Q-learning with Experience Replay
 
@@ -121,7 +121,7 @@ QNetwork(
 )
 ```
 
-Three state together with actions, i.e. input state will be $3\times(\text{Number of states}+\text{Number of actions})=123$ as input:
+Three state together with actions, i.e. input state will be ![3\times(\text{Number of states}+\text{Number of actions})=123](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) as input:
 
 ```
 QNetwork(
@@ -136,7 +136,7 @@ QNetwork(
 
 In the second case, only prioritization is added to the selection of the batch from the replay memory. The probability of selecting a tuple is related to the error associated to that and to obtain that the implementation should be changed slightly. After that the expected reward and the estimate of the target reward are calculated, the losses are computed as the difference between them. These losses are saved for later use and the total error is calculated for minimization of the error.
 
-The prioritized experience replay involves two parameters $\alpha$ and $\beta$. $\alpha$ is used in canlculation of probability of choosing a tuple from the memory, i.e. $ P_i =  \epsilon_i^\alpha / \Sigma{\epsilon_i^\alpha} $, where $\epsilon_i$ is the latest error for the $i$th record in the memory. $\beta$ is a parameter for the weight calculation is the contribution to the total error from each case in the batch. That is $w_i = \left( P_i N\right)^{-\beta}$/Max_i(w_i). Note that if $\alpha = 0$ the batch is randomly sampled and if $\beta = 0$ the weights are equal. $\alpha$ was set to $0.7$ and $\beta$ started at $0.4$ and increased linerly to $1$ over 300 episode.
+The prioritized experience replay involves two parameters ![\alpha](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) and ![\beta](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D). ![\alpha](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) is used in canlculation of probability of choosing a tuple from the memory, i.e. ![ P_i =  \epsilon_i^\alpha / \Sigma{\epsilon_i^\alpha} ![, where ![\epsilon_i](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) is the latest error for the ![i](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D)th record in the memory. ![\beta](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) is a parameter for the weight calculation is the contribution to the total error from each case in the batch. That is ![w_i = \left( P_i N\right)^{-\beta}](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D)/Max_i(w_i). Note that if ![\alpha = 0](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) the batch is randomly sampled and if ![\beta = 0](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) the weights are equal. ![\alpha](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) was set to ![0.7](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) and ![\beta](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) started at ![0.4](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) and increased linerly to ![1](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) over 300 episode.
 
 The network used in this case was similar to the previous case.
 
@@ -167,7 +167,7 @@ DuelingQNetwork(
 )
 ```
 
-Three state together with actions, i.e. input state will be $3\times(\text{Number of states}+\text{Number of actions})=123$ as input:
+Three state together with actions, i.e. input state will be ![3\times(\text{Number of states}+\text{Number of actions})=123](https://latex.codecogs.com/svg.latex?x%3D%5Cfrac%7B-b%5Cpm%5Csqrt%7Bb%5E2-4ac%7D%7D%7B2a%7D) as input:
 
 ```
 DuelingQNetwork(
