@@ -91,7 +91,7 @@ The above steps describe the basic algorithm. There are a number of improvements
 2. Prioritized Experience Replay, to be added.
 3. Dueling Douple Q-Network, to be implemented.
 
-My initial trainings indicated that the agent could become very skilful fast. However, it made mistakes and got stuck in some cases, mistakes that a human player will not commit. My thought was that we do not do such mistakes as we not only see the bananas, but also remember the latest states togther with our own actions. To test this idea, I considered two cases, one, when only the states are taken as input to the networks and one where I added the selected action to the state vector as a for of extended state and saved three stages of this extended state in a history buffer and used that as input to the networks.
+My initial trainings indicated that the agent could become very skilful fast. However, it made mistakes and got stuck in some cases, mistakes that a human player will not commit. My thought was that we do not do such mistakes as we not only see the bananas, but also remember the latest states togther with our own actions. To test this idea, I considered two cases, one, when only the states are taken as input to the networks and one where I added the selected action to the state vector creating an extended state and saved three stages of this extended state in a history buffer and used the whole buffer as input to the networks.
 
 Details of the algorithm can be found in [training_and_report.ipynb](./training_and_report.ipynb).
 
